@@ -15,9 +15,9 @@ export default function VerifyPage() {
 
     const verifyData = async () => {
       try {
-        const response = await axios.post("http://localhost:5000/api/kk/verify", {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk/verify`, {
           nomorKK,
-        });
+        });        
 
         if (response.data.success) {
           setStatus("valid");
