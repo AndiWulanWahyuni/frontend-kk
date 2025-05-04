@@ -43,9 +43,14 @@ export default function Home() {
                 alert("⚠️ Gagal menyimpan data: " + response.data.message);
             }
         } catch (error) {
-            console.error("❌ Error saat menyimpan:", error.response?.data || error.message);
-            alert("❌ Error saat menyimpan data.");
-        }
+            if (error.response && error.response.data) {
+                console.error("❌ Error saat menyimpan:", error.response.data);
+                alert("❌ " + error.response.data.message);
+            } else {
+                console.error("❌ Error saat menyimpan:", error.message);
+                alert("❌ Error saat menyimpan data.");
+            }
+        }        
     };
 
     return (
