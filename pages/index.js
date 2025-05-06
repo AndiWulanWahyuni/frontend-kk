@@ -4,9 +4,12 @@ import QRCodeComponent from "../components/QRCodeComponent";
 console.log("QRCodeComponent is:", QRCodeComponent);
 
 export default function Home() {
+    const [statusDokumen, setStatusDokumen] = useState("Aktif");
     const [nomorKK, setNomorKK] = useState("");
     const [alamat, setAlamat] = useState("");
     const [anggotaKeluarga, setAnggotaKeluarga] = useState([{ nama: "", hubungan: "" }]);
+    const [daerah, setDaerah] = useState("");
+    const [penandatangan, setPenandatangan] = useState("");
     const [qrValue, setQRValue] = useState("");
 
     // Fungsi untuk menambah anggota keluarga baru ke dalam array
@@ -27,9 +30,13 @@ export default function Home() {
 
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk/store`, {
+                statusDokumen,
                 nomorKK,
                 alamat,
                 anggotaKeluarga,
+                daerah,
+                penandatangan,
+                tanggalTtd: new Date().toISOString(),
             });
     
             if (response.data.success) {
@@ -57,6 +64,10 @@ export default function Home() {
         <div style={{ textAlign: "center", padding: "20px" }}>
             <h1>Autentikasi Kartu Keluarga dengan Blockchain</h1>
             <form onSubmit={handleSubmit} style={{ maxWidth: "400px", margin: "auto" }}>
+                <select value={statusDokumen} onChange={(e) => setStatusDokumen(e.target.value)} style={{ display: "block", margin: "10px auto", width: "100%" }}>
+                    <option value="Aktif">Aktif</option>
+                    <option value="Tidak Aktif">Tidak Aktif</option>
+                </select>
                 <input 
                     type="text" 
                     placeholder="Nomor KK" 
@@ -92,6 +103,22 @@ export default function Home() {
                             onChange={(e) => handleMemberChange(index, "hubungan", e.target.value)} 
                             required 
                             style={{ display: "inline-block", margin: "5px", width: "45%" }}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Daerah"
+                            value={daerah}
+                            onChange={(e) => setDaerah(e.target.value)}
+                            required
+                            style={{ display: "block", margin: "10px auto", width: "100%" }}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Nama Penandatangan"
+                            value={penandatangan}
+                            onChange={(e) => setPenandatangan(e.target.value)}
+                            required
+                            style={{ display: "block", margin: "10px auto", width: "100%" }}
                         />
                     </div>
                 ))}

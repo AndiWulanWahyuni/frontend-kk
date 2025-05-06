@@ -46,8 +46,12 @@ export default function VerifyPage() {
       {status === "valid" && dataKK && (
         <>
           <h2 style={{ color: "green" }}>✅ Data Valid</h2>
-          <p><strong>Nomor KK:</strong> {dataKK.nomorKK}</p>
+          <p><strong>Status Dokumen:</strong> {dataKK.statusDokumen}</p>
+          <p><strong>Nomor KK:</strong> {dataKK.nomorKK?.slice(0, 15)}***</p>
           <p><strong>Alamat:</strong> {dataKK.alamat}</p>
+          <p><strong>Daerah:</strong> {dataKK.daerah}</p>
+          <p><strong>Penandatangan:</strong> {dataKK.penandatangan}</p>
+          <p><strong>Waktu TTD:</strong> {new Date(dataKK.tanggalTtd).toLocaleString("id-ID")}</p>
 
           <h3>👨‍👩‍👧‍👦 Anggota Keluarga:</h3>
           <ul style={{ textAlign: "left", paddingLeft: "20px" }}>
