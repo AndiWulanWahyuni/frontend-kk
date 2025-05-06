@@ -47,7 +47,7 @@ export default function VerifyPage() {
         <>
           <h2 style={{ color: "green" }}>✅ Data Valid</h2>
           <p><strong>Status Dokumen:</strong> {dataKK.statusDokumen}</p>
-          <p><strong>Nomor KK:</strong> {dataKK.nomorKK?.slice(0, 15)}***</p>
+          <p><strong>Nomor KK:</strong> {dataKK.nomorKK?.slice(0, 13)}***</p>
           <p><strong>Alamat:</strong> {dataKK.alamat}</p>
           <p><strong>Daerah:</strong> {dataKK.daerah}</p>
           <p><strong>Penandatangan:</strong> {dataKK.penandatangan}</p>
