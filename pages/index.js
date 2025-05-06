@@ -64,10 +64,12 @@ export default function Home() {
         <div style={{ textAlign: "center", padding: "20px" }}>
             <h1>Autentikasi Kartu Keluarga dengan Blockchain</h1>
             <form onSubmit={handleSubmit} style={{ maxWidth: "400px", margin: "auto" }}>
+                <h4>Status Dokumen</h4>
                 <select value={statusDokumen} onChange={(e) => setStatusDokumen(e.target.value)} style={{ display: "block", margin: "10px auto", width: "100%" }}>
                     <option value="Aktif">Aktif</option>
                     <option value="Tidak Aktif">Tidak Aktif</option>
                 </select>
+                <h4>No. KK</h4>
                 <input 
                     type="text" 
                     placeholder="Nomor KK" 
@@ -76,6 +78,7 @@ export default function Home() {
                     required 
                     style={{ display: "block", margin: "10px auto", width: "100%" }}
                 />
+                <h4>Alamat</h4>
                 <input 
                     type="text" 
                     placeholder="Alamat" 
@@ -85,7 +88,7 @@ export default function Home() {
                     style={{ display: "block", margin: "10px auto", width: "100%" }}
                 />
 
-                <h3>Anggota Keluarga</h3>
+                <h4>Anggota Keluarga</h4>
                 {anggotaKeluarga.map((member, index) => (
                     <div key={index}>
                         <input 
@@ -104,6 +107,13 @@ export default function Home() {
                             required 
                             style={{ display: "inline-block", margin: "5px", width: "45%" }}
                         />
+                    </div>
+                ))}
+                <button type="button" onClick={handleAddMember} style={{ display: "block", margin: "10px auto" }}>
+                    Tambah Anggota Keluarga
+                </button>
+                        <h4 style={{ color: "blue" }}>Info Penandatangan</h4>
+                        <h4>Daerah</h4>
                         <input
                             type="text"
                             placeholder="Daerah"
@@ -112,6 +122,7 @@ export default function Home() {
                             required
                             style={{ display: "block", margin: "10px auto", width: "100%" }}
                         />
+                        <h4>Penandatangan</h4>
                         <input
                             type="text"
                             placeholder="Nama Penandatangan"
@@ -120,11 +131,6 @@ export default function Home() {
                             required
                             style={{ display: "block", margin: "10px auto", width: "100%" }}
                         />
-                    </div>
-                ))}
-                <button type="button" onClick={handleAddMember} style={{ display: "block", margin: "10px auto" }}>
-                    Tambah Anggota Keluarga
-                </button>
                 <button type="submit" style={{ display: "block", margin: "10px auto" }}>Simpan Data</button>
             </form>
 
