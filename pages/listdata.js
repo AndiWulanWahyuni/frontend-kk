@@ -5,7 +5,6 @@ import QRCode from "react-qr-code";
 export default function KKListPage() {
   const [dataList, setDataList] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
-
   const [loading, setLoading] = useState(false);
   const [savingIndex, setSavingIndex] = useState(null); // Menunjukkan data mana yang sedang disimpan
 
@@ -16,8 +15,8 @@ export default function KKListPage() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk`);
-      setDataList(res.data);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk/list`);
+      setDataList(res.data.data);
     } catch (error) {
       console.error("Gagal mengambil data:", error);
     } finally {
@@ -52,12 +51,12 @@ export default function KKListPage() {
   const handleSave = async (index) => {
     const updatedKK = {
       ...dataList[index],
-      waktuTtd: new Date().toISOString()
+      tanggalTtd: new Date().toISOString()
     };
   
     setSavingIndex(index);
     try {
-      await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk/${updatedKK._id}`, updatedKK);
+      await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk/update/${updatedKK.nomorKK}`, updatedKK);
       setEditingIndex(null);
       await fetchData();
     } catch (err) {
