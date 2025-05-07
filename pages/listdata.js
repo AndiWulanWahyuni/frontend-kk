@@ -6,14 +6,24 @@ export default function KKListPage() {
   const [dataList, setDataList] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+  const [savingIndex, setSavingIndex] = useState(null); // Menunjukkan data mana yang sedang disimpan
+
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk`);
-    setDataList(res.data);
-  };
+    setLoading(true);
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk`);
+      setDataList(res.data);
+    } catch (error) {
+      console.error("Gagal mengambil data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };  
 
   const handleInputChange = (index, field, value) => {
     const updated = [...dataList];
@@ -44,26 +54,46 @@ export default function KKListPage() {
       ...dataList[index],
       waktuTtd: new Date().toISOString()
     };
-
-    await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk/${updatedKK._id}`, updatedKK);
-    setEditingIndex(null);
-    fetchData();
-  };
+  
+    setSavingIndex(index);
+    try {
+      await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk/${updatedKK._id}`, updatedKK);
+      setEditingIndex(null);
+      await fetchData();
+    } catch (err) {
+      console.error("Gagal menyimpan data:", err);
+    } finally {
+      setSavingIndex(null);
+    }
+  };  
 
   const handleDownloadQR = (kkIndex) => {
-    const canvas = document.getElementById(`qr-${kkIndex}`);
-    const pngUrl = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-    const downloadLink = document.createElement("a");
-    downloadLink.href = pngUrl;
-    downloadLink.download = `KK-${dataList[kkIndex].nomorKK}.png`;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+    const svgElement = document.getElementById(`qr-${kkIndex}`).querySelector("svg");
+    const serializer = new XMLSerializer();
+    const svgData = serializer.serializeToString(svgElement);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      const pngFile = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = pngFile;
+      a.download = `KK-${dataList[kkIndex].nomorKK}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    };
+    img.src = "data:image/svg+xml;base64," + btoa(svgData);
   };
+  
 
   return (
     <div style={{ padding: "20px" }}>
       <h1>📄 Daftar Data KK Aktif</h1>
+      {loading && <p>🔄 Memuat data...</p>}
       {dataList.map((data, index) => (
         <div key={data._id} style={{ border: "1px solid #ccc", padding: "15px", margin: "15px 0" }}>
           <QRCode id={`qr-${index}`} value={data.nomorKK} size={128} />
@@ -130,7 +160,11 @@ export default function KKListPage() {
             <button onClick={() => handleAddMember(index)}>➕ Tambah Anggota</button>
 
             <div style={{ marginTop: "10px" }}>
-              <button onClick={() => handleSave(index)}>💾 Simpan Perubahan</button>
+            {savingIndex === index ? (
+                <button disabled>💾 Menyimpan...</button>
+            ) : (
+            <button onClick={() => handleSave(index)}>💾 Simpan Perubahan</button>
+            )}
             </div>
           </div>
         </div>
