@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import QRCode from "qrcode.react";
+import QRCode from "react-qr-code";
 
 export default function KKListPage() {
   const [dataList, setDataList] = useState([]);
