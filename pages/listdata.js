@@ -68,7 +68,7 @@ export default function KKListPage() {
   };
 
   const handleDownloadQR = (kkIndex) => {
-    const svg = document.querySelector(`#qr-wrapper-${kkIndex} svg`);
+    const svg = document.querySelector(`#qr-${kkIndex} svg`);
     const serializer = new XMLSerializer();
     const svgData = serializer.serializeToString(svg);
     const canvas = document.createElement("canvas");
