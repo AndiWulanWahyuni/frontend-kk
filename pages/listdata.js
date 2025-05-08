@@ -59,24 +59,27 @@ export default function KKListPage() {
       await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk/update/${updatedKK.nomorKK}`, updatedKK);
       setEditingIndex(null);
       await fetchData();
+      alert("✅ Perubahan berhasil disimpan!");
     } catch (err) {
       console.error("Gagal menyimpan data:", err);
     } finally {
       setSavingIndex(null);
     }
-  };  
+  };
 
   const handleDownloadQR = (kkIndex) => {
-    const svgElement = document.getElementById(`qr-${kkIndex}`).querySelector("svg");
+    const svg = document.querySelector(`#qr-wrapper-${kkIndex} svg`);
     const serializer = new XMLSerializer();
-    const svgData = serializer.serializeToString(svgElement);
+    const svgData = serializer.serializeToString(svg);
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
+  
     const img = new Image();
     img.onload = () => {
       canvas.width = img.width;
       canvas.height = img.height;
       ctx.drawImage(img, 0, 0);
+  
       const pngFile = canvas.toDataURL("image/png");
       const a = document.createElement("a");
       a.href = pngFile;
@@ -85,6 +88,7 @@ export default function KKListPage() {
       a.click();
       document.body.removeChild(a);
     };
+  
     img.src = "data:image/svg+xml;base64," + btoa(svgData);
   };
   
@@ -95,7 +99,9 @@ export default function KKListPage() {
       {loading && <p>🔄 Memuat data...</p>}
       {dataList.map((data, index) => (
         <div key={data._id} style={{ border: "1px solid #ccc", padding: "15px", margin: "15px 0" }}>
-          <QRCode id={`qr-${index}`} value={data.nomorKK} size={128} />
+          <div id={`qr-${index}`}>
+            <QRCode value={`https://frontend-kk.vercel.app/verify?nomorKK=${data.nomorKK}`} size={128} />
+          </div>
           <button onClick={() => handleDownloadQR(index)} style={{ marginLeft: "10px" }}>⬇️ Download QR</button>
 
           <div style={{ marginTop: "15px" }}>
