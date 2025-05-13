@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import QRCodeComponent from "../components/QRCodeComponent";
-import "../styles/style.css";
 console.log("QRCodeComponent is:", QRCodeComponent);
 
 export default function Home() {
