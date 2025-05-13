@@ -69,11 +69,11 @@
 }
 
 .status-active {
-    color: green;
+    color: green !important;
 }
   
 .status-inactive {
-    color: red;
+    color: red !important;
 }
   
 .section {
