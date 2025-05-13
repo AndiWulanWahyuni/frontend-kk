@@ -168,11 +168,11 @@
 }
   
 .kk-status.aktif {
-    background-color: #00c28a;
+    background-color: green;
 }
   
 .kk-status.tidak-aktif {
-    background-color: #e74c3c;
+    background-color: red;
 }
   
 .qr-section {

@@ -101,12 +101,30 @@ export default function KKListPage() {
         <div className="kk-card" key={data._id}>
           <div className="kk-header">
             <span className="kk-nomor">{data.nomorKK}</span>
-            <span className={`kk-status ${data.statusDokumen === "aktif" ? "aktif" : "tidak-aktif"}`}>
-              {data.statusDokumen === "aktif" ? "Aktif" : "Tidak Aktif"}
+            <span className={`kk-status ${data.statusDokumen.toLowerCase() === "aktif" ? "aktif" : "tidak-aktif"}`}>
+              {data.statusDokumen}
             </span>
           </div>
-          <p>{data.alamat}</p>
-          <p>Penandatangan: <br />{data.daerah}<br />{data.penandatangan}, {new Date(data.tanggalTtd).toLocaleString()}</p>
+          <p><strong>Alamat:</strong> {data.alamat}</p>
+          <p><strong>Penandatangan:</strong><br />
+            {data.daerah}<br />
+            {data.penandatangan}, {new Date(data.tanggalTtd).toLocaleString()}
+          </p>
+
+          <h4>👨‍👩‍👧‍👦 Anggota Keluarga</h4>
+          <table className="anggota-table">
+            <thead>
+              <tr><th>Nama</th><th>Hubungan</th></tr>
+            </thead>
+            <tbody>
+              {data.anggotaKeluarga.map((member, i) => (
+                <tr key={i}>
+                  <td>{member.nama}</td>
+                  <td>{member.hubungan}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
           <div className="qr-section">
             <div id={`qr-${index}`}>
@@ -116,7 +134,7 @@ export default function KKListPage() {
           </div>
 
           {editingIndex === index ? (
-            <div>
+            <div className="edit-form">
               <label>Nomor KK:</label>
               <input value={data.nomorKK} onChange={(e) => handleInputChange(index, "nomorKK", e.target.value)} />
 
@@ -135,7 +153,7 @@ export default function KKListPage() {
               <label>Penandatangan:</label>
               <input value={data.penandatangan} onChange={(e) => handleInputChange(index, "penandatangan", e.target.value)} />
 
-              <h4>👨‍👩‍👧‍👦 Anggota Keluarga</h4>
+              <h4>Edit Anggota Keluarga</h4>
               <table className="anggota-table">
                 <thead>
                   <tr><th>Nama</th><th>Hubungan</th><th>Aksi</th></tr>
