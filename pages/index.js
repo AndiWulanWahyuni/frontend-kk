@@ -63,7 +63,7 @@ export default function Home() {
     return (
         <div style={{ textAlign: "center", padding: "20px" }}>
           <form className="form-container" onSubmit={handleSubmit}>
-          <h2 style={{ textAlign: 'center', color: '#004080' }}>Input Data Kartu Keluarga</h2>
+          <h2 style={{ textAlign: 'center', color: '#55a4f3' }}>Input Data Kartu Keluarga</h2>
             <label className="form-label">Status Dokumen</label>
             <select
               className="form-input"
@@ -116,7 +116,7 @@ export default function Home() {
               </div>
             ))}
             <button type="button" className="form-button" onClick={handleAddMember}>
-              Tambah Anggota Keluarga
+              Tambah Anggota
             </button>
     
             <label className="form-label">Daerah</label>
