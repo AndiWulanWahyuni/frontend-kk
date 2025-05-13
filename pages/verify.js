@@ -40,47 +40,79 @@ export default function VerifyPage() {
   if (loading) return <p style={{ textAlign: "center" }}>🔄 Memverifikasi data...</p>;
 
   return (
-    <div style={{ maxWidth: "600px", margin: "auto", padding: "20px", textAlign: "center" }}>
-      <h1>Hasil Verifikasi Kartu Keluarga</h1>
+    <div className="verify-container">
+      <h1 className="verify-title">Verifikasi Kartu Keluarga</h1>
 
       {status === "valid" && dataKK && (
-        <>
-          <h2 style={{ color: "green" }}>✅ Data Valid</h2>
-          <p><strong>Status Dokumen:</strong> {dataKK.statusDokumen}</p>
-          <p><strong>Nomor KK:</strong> {dataKK.nomorKK?.slice(0, 13)}***</p>
-          <p><strong>Alamat:</strong> {dataKK.alamat}</p>
-          <p><strong>Daerah:</strong> {dataKK.daerah}</p>
-          <p><strong>Penandatangan:</strong> {dataKK.penandatangan}</p>
-          <p><strong>Waktu TTD:</strong> {new Date(dataKK.tanggalTtd).toLocaleString("id-ID")}</p>
+        <div className="verify-card">
+          <div className="section">
+            <div className="section-title">Status Dokumen</div>
+            <div className="section-content">{dataKK.statusDokumen}</div>
+          </div>
 
-          <h3>👨‍👩‍👧‍👦 Anggota Keluarga:</h3>
-          <ul style={{ textAlign: "left", paddingLeft: "20px" }}>
-            {dataKK.anggotaKeluarga.map((anggota, index) => (
-              <li key={index}>
-                {anggota.nama} - {anggota.hubungan}
-              </li>
-            ))}
-          </ul>
+          <div className="section">
+            <div className="section-title">No. KK</div>
+            <div className="section-content">{dataKK.nomorKK?.slice(0, 13)}***</div>
+          </div>
 
-          <p style={{ fontSize: "12px", marginTop: "10px" }}>
-            🔒 Verifikasi hash cocok dengan yang disimpan di blockchain.
-          </p>
-        </>
+          <div className="section">
+            <div className="section-title">Alamat</div>
+            <div className="section-content">{dataKK.alamat}</div>
+          </div>
+
+          <div className="section">
+            <div className="section-title">Daftar Anggota Keluarga</div>
+            <table className="family-table">
+              <tbody>
+                {dataKK.anggotaKeluarga.map((anggota, index) => (
+                  <tr key={index}>
+                    <td>{anggota.nama}</td>
+                    <td>{anggota.hubungan}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="section">
+            <div className="title" style={{ color: "#55a4f3" }}>Info Penandatangan</div>
+          </div>
+
+          <div className="section">
+            <div className="section-title">Daerah</div>
+            <div className="section-content">{dataKK.daerah}</div>
+          </div>
+
+          <div className="section">
+            <div className="section-title">Penandatangan</div>
+            <div className="section-content">{dataKK.penandatangan}</div>
+          </div>
+
+          <div className="section">
+            <div className="section-title">Tanggal dan Waktu TTD</div>
+            <div className="section-content">
+              {new Date(dataKK.tanggalTtd).toLocaleString("id-ID")}
+            </div>
+          </div>
+
+          <div className="footer-info">
+            ✅ Data telah diverifikasi dan valid berdasarkan hash yang tersimpan di blockchain.
+          </div>
+        </div>
       )}
 
       {status === "invalid" && (
-        <>
-          <h2 style={{ color: "red" }}>❌ Data Tidak Valid</h2>
-          <p>Data tidak sesuai dengan hash yang tersimpan di blockchain.</p>
-          <p>🛑 Data ini mungkin telah diubah setelah disimpan.</p>
-        </>
+        <div className="error-box">
+          <h2>❌ Data Tidak Valid</h2>
+          <p>Data tidak cocok dengan hash yang tersimpan di blockchain.</p>
+        </div>
       )}
 
       {status === "error" && (
-        <>
-          <h2 style={{ color: "orange" }}>⚠️ Terjadi Kesalahan</h2>
-          <p>Gagal memverifikasi data. Silakan coba lagi nanti.</p>
-        </>
+        <div className="error-box">
+          <h2>⚠️ Terjadi Kesalahan</h2>
+          <p>Gagal memverifikasi data. Silakan coba beberapa saat lagi.</p>
+        </div>
       )}
     </div>
   );
