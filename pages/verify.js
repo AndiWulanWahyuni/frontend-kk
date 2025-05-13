@@ -47,7 +47,7 @@ export default function VerifyPage() {
         <div className="verify-card">
           <div className="section">
             <div className="section-title">Status Dokumen</div>
-            <div className={`section-content ${dataKK.statusDokumen?.toLowerCase() === "aktif" ? "status-active" : "status-inactive"}`}>{dataKK.statusDokumen}</div>
+            <div className={`section-content ${dataKK.statusDokumen?.trim().toLowerCase() === "aktif" ? "status-active" : "status-inactive"}`}>{dataKK.statusDokumen}</div>
           </div>
 
           <div className="section">
