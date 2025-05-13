@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import QRCodeComponent from "../components/QRCodeComponent";
+import "../styles/style";
 console.log("QRCodeComponent is:", QRCodeComponent);
 
 export default function Home() {
@@ -62,79 +63,87 @@ export default function Home() {
 
     return (
         <div style={{ textAlign: "center", padding: "20px" }}>
-            <h1>Autentikasi Kartu Keluarga dengan Blockchain</h1>
-            <form onSubmit={handleSubmit} style={{ maxWidth: "400px", margin: "auto" }}>
-                <h4>Status Dokumen</h4>
-                <select value={statusDokumen} onChange={(e) => setStatusDokumen(e.target.value)} style={{ display: "block", margin: "10px auto", width: "100%" }}>
-                    <option value="Aktif">Aktif</option>
-                    <option value="Tidak Aktif">Tidak Aktif</option>
-                </select>
-                <h4>No. KK</h4>
-                <input 
-                    type="text" 
-                    placeholder="Nomor KK" 
-                    value={nomorKK} 
-                    onChange={(e) => setNomorKK(e.target.value)} 
-                    required 
-                    style={{ display: "block", margin: "10px auto", width: "100%" }}
+          <form className="form-container" onSubmit={handleSubmit}>
+          <h2 style={{ textAlign: 'center', color: '#004080' }}>Input Data Kartu Keluarga</h2>
+            <label className="form-label">Status Dokumen</label>
+            <select
+              className="form-input"
+              value={statusDokumen}
+              onChange={(e) => setStatusDokumen(e.target.value)}
+            >
+              <option value="Aktif">Aktif</option>
+              <option value="Tidak Aktif">Tidak Aktif</option>
+            </select>
+    
+            <label className="form-label">No. KK</label>
+            <input
+              className="form-input"
+              type="text"
+              placeholder="Nomor KK"
+              value={nomorKK}
+              onChange={(e) => setNomorKK(e.target.value)}
+              required
+            />
+    
+            <label className="form-label">Alamat</label>
+            <input
+              className="form-input"
+              type="text"
+              placeholder="Alamat"
+              value={alamat}
+              onChange={(e) => setAlamat(e.target.value)}
+              required
+            />
+    
+            <label className="form-label">Anggota Keluarga</label>
+            {anggotaKeluarga.map((member, index) => (
+              <div className="member-row" key={index}>
+                <input
+                  className="form-input"
+                  type="text"
+                  placeholder="Nama"
+                  value={member.nama}
+                  onChange={(e) => handleMemberChange(index, "nama", e.target.value)}
+                  required
                 />
-                <h4>Alamat</h4>
-                <input 
-                    type="text" 
-                    placeholder="Alamat" 
-                    value={alamat} 
-                    onChange={(e) => setAlamat(e.target.value)} 
-                    required 
-                    style={{ display: "block", margin: "10px auto", width: "100%" }}
+                <input
+                  className="form-input"
+                  type="text"
+                  placeholder="Hubungan"
+                  value={member.hubungan}
+                  onChange={(e) => handleMemberChange(index, "hubungan", e.target.value)}
+                  required
                 />
-
-                <h4>Anggota Keluarga</h4>
-                {anggotaKeluarga.map((member, index) => (
-                    <div key={index}>
-                        <input 
-                            type="text" 
-                            placeholder="Nama" 
-                            value={member.nama} 
-                            onChange={(e) => handleMemberChange(index, "nama", e.target.value)} 
-                            required 
-                            style={{ display: "inline-block", margin: "5px", width: "45%" }}
-                        />
-                        <input 
-                            type="text" 
-                            placeholder="Hubungan" 
-                            value={member.hubungan} 
-                            onChange={(e) => handleMemberChange(index, "hubungan", e.target.value)} 
-                            required 
-                            style={{ display: "inline-block", margin: "5px", width: "45%" }}
-                        />
-                    </div>
-                ))}
-                <button type="button" onClick={handleAddMember} style={{ display: "block", margin: "10px auto" }}>
-                    Tambah Anggota Keluarga
-                </button>
-                        <h4 style={{ color: "blue" }}>Info Penandatangan</h4>
-                        <h4>Daerah</h4>
-                        <input
-                            type="text"
-                            placeholder="Daerah"
-                            value={daerah}
-                            onChange={(e) => setDaerah(e.target.value)}
-                            required
-                            style={{ display: "block", margin: "10px auto", width: "100%" }}
-                        />
-                        <h4>Penandatangan</h4>
-                        <input
-                            type="text"
-                            placeholder="Nama Penandatangan"
-                            value={penandatangan}
-                            onChange={(e) => setPenandatangan(e.target.value)}
-                            required
-                            style={{ display: "block", margin: "10px auto", width: "100%" }}
-                        />
-                <button type="submit" style={{ display: "block", margin: "10px auto" }}>Simpan Data</button>
-            </form>
-
-            {qrValue && <QRCodeComponent value={qrValue} />}
+              </div>
+            ))}
+            <button type="button" className="form-button" onClick={handleAddMember}>
+              Tambah Anggota Keluarga
+            </button>
+    
+            <label className="form-label">Daerah</label>
+            <input
+              className="form-input"
+              type="text"
+              placeholder="Daerah"
+              value={daerah}
+              onChange={(e) => setDaerah(e.target.value)}
+              required
+            />
+    
+            <label className="form-label">Penandatangan</label>
+            <input
+              className="form-input"
+              type="text"
+              placeholder="Nama Penandatangan"
+              value={penandatangan}
+              onChange={(e) => setPenandatangan(e.target.value)}
+              required
+            />
+    
+            <button type="submit" className="form-button">Simpan Data</button>
+          </form>
+    
+          {qrValue && <QRCodeComponent value={qrValue} />}
         </div>
     );
 }
