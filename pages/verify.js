@@ -47,7 +47,7 @@ export default function VerifyPage() {
         <div className="verify-card">
           <div className="section">
             <div className="section-title">Status Dokumen</div>
-            <div className="section-content">{dataKK.statusDokumen}</div>
+            <div className={`section-content ${dataKK.statusDokumen?.toLowerCase() === "aktif" ? "status-active" : "status-inactive"}`}>{dataKK.statusDokumen}</div>
           </div>
 
           <div className="section">
@@ -63,6 +63,12 @@ export default function VerifyPage() {
           <div className="section">
             <div className="section-title">Daftar Anggota Keluarga</div>
             <table className="family-table">
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>Hubungan</th>
+                </tr>
+              </thead>
               <tbody>
                 {dataKK.anggotaKeluarga.map((anggota, index) => (
                   <tr key={index}>
@@ -75,7 +81,7 @@ export default function VerifyPage() {
           </div>
 
           <div className="section">
-            <div className="title" style={{ color: "#55a4f3" }}>Info Penandatangan</div>
+            <div className="title" style={{ color: "#55a4f3", fontWeight: "bold", fontSize: "15px", marginBottom: "6px" }}>Info Penandatangan</div>
           </div>
 
           <div className="section">
