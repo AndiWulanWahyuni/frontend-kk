@@ -94,91 +94,84 @@ export default function KKListPage() {
   
 
   return (
-    <div className="container">
-      <h1>📄 Daftar Kartu Keluarga</h1>
+    <div style={{ padding: "20px" }}>
+      <h1>📄 Daftar Data KK Aktif</h1>
       {loading && <p>🔄 Memuat data...</p>}
       {dataList.map((data, index) => (
-        <div className="kk-card" key={data._id}>
-          <div className="kk-header">
-            <span className="kk-nomor">{data.nomorKK}</span>
-            <span className={`kk-status ${data.statusDokumen.toLowerCase() === "aktif" ? "aktif" : "tidak-aktif"}`}>
-              {data.statusDokumen}
-            </span>
+        <div key={data._id} style={{ border: "1px solid #ccc", padding: "15px", margin: "15px 0" }}>
+          <div id={`qr-${index}`}>
+            <QRCode value={`https://frontend-kk.vercel.app/verify?nomorKK=${data.nomorKK}`} size={128} />
           </div>
-          <p><strong>Alamat:</strong> {data.alamat}</p>
-          <p><strong>Penandatangan:</strong><br />
-            {data.daerah}<br />
-            {data.penandatangan}, {new Date(data.tanggalTtd).toLocaleString()}
-          </p>
+          <button onClick={() => handleDownloadQR(index)} style={{ marginLeft: "10px" }}>⬇️ Download QR</button>
 
-          <h4>👨‍👩‍👧‍👦 Anggota Keluarga</h4>
-          <table className="anggota-table">
-            <thead>
-              <tr><th>Nama</th><th>Hubungan</th></tr>
-            </thead>
-            <tbody>
-              {data.anggotaKeluarga.map((member, i) => (
-                <tr key={i}>
-                  <td>{member.nama}</td>
-                  <td>{member.hubungan}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div style={{ marginTop: "15px" }}>
+            <label>Nomor KK:</label>
+            <input
+              value={data.nomorKK}
+              onChange={(e) => handleInputChange(index, "nomorKK", e.target.value)}
+              style={{ width: "100%" }}
+            />
 
-          <div className="qr-section">
-            <div id={`qr-${index}`}>
-              <QRCode value={`https://frontend-kk.vercel.app/verify?nomorKK=${data.nomorKK}`} size={128} />
-            </div>
-            <button className="btn" onClick={() => handleDownloadQR(index)}>⬇️ Download QR</button>
-          </div>
+            <label>Alamat:</label>
+            <input
+              value={data.alamat}
+              onChange={(e) => handleInputChange(index, "alamat", e.target.value)}
+              style={{ width: "100%" }}
+            />
 
-          {editingIndex === index ? (
-            <div className="edit-form">
-              <label>Nomor KK:</label>
-              <input value={data.nomorKK} onChange={(e) => handleInputChange(index, "nomorKK", e.target.value)} />
+            <label>Status Dokumen:</label>
+            <select
+              value={data.statusDokumen}
+              onChange={(e) => handleInputChange(index, "statusDokumen", e.target.value)}
+            >
+              <option value="aktif">Aktif</option>
+              <option value="tidak aktif">Tidak Aktif</option>
+            </select>
 
-              <label>Alamat:</label>
-              <input value={data.alamat} onChange={(e) => handleInputChange(index, "alamat", e.target.value)} />
+            <label>Daerah Penandatangan:</label>
+            <input
+              value={data.daerah}
+              onChange={(e) => handleInputChange(index, "daerah", e.target.value)}
+              style={{ width: "100%" }}
+            />
 
-              <label>Status Dokumen:</label>
-              <select value={data.statusDokumen} onChange={(e) => handleInputChange(index, "statusDokumen", e.target.value)}>
-                <option value="aktif">Aktif</option>
-                <option value="tidak aktif">Tidak Aktif</option>
-              </select>
+            <label>Nama Penandatangan:</label>
+            <input
+              value={data.penandatangan}
+              onChange={(e) => handleInputChange(index, "penandatangan", e.target.value)}
+              style={{ width: "100%" }}
+            />
 
-              <label>Daerah:</label>
-              <input value={data.daerah} onChange={(e) => handleInputChange(index, "daerah", e.target.value)} />
+            <h4>👨‍👩‍👧‍👦 Anggota Keluarga:</h4>
+            {data.anggotaKeluarga.map((member, i) => (
+              <div key={i}>
+                <input
+                  type="text"
+                  placeholder="Nama"
+                  value={member.nama}
+                  onChange={(e) => handleMemberChange(index, i, "nama", e.target.value)}
+                  style={{ width: "45%", marginRight: "10px" }}
+                />
+                <input
+                  type="text"
+                  placeholder="Hubungan"
+                  value={member.hubungan}
+                  onChange={(e) => handleMemberChange(index, i, "hubungan", e.target.value)}
+                  style={{ width: "45%" }}
+                />
+                <button onClick={() => handleRemoveMember(index, i)}>❌</button>
+              </div>
+            ))}
+            <button onClick={() => handleAddMember(index)}>➕ Tambah Anggota</button>
 
-              <label>Penandatangan:</label>
-              <input value={data.penandatangan} onChange={(e) => handleInputChange(index, "penandatangan", e.target.value)} />
-
-              <h4>Edit Anggota Keluarga</h4>
-              <table className="anggota-table">
-                <thead>
-                  <tr><th>Nama</th><th>Hubungan</th><th>Aksi</th></tr>
-                </thead>
-                <tbody>
-                  {data.anggotaKeluarga.map((member, i) => (
-                    <tr key={i}>
-                      <td><input value={member.nama} onChange={(e) => handleMemberChange(index, i, "nama", e.target.value)} /></td>
-                      <td><input value={member.hubungan} onChange={(e) => handleMemberChange(index, i, "hubungan", e.target.value)} /></td>
-                      <td><button onClick={() => handleRemoveMember(index, i)}>❌</button></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <button onClick={() => handleAddMember(index)}>➕ Tambah Anggota</button>
-
-              {savingIndex === index ? (
+            <div style={{ marginTop: "10px" }}>
+            {savingIndex === index ? (
                 <button disabled>💾 Menyimpan...</button>
-              ) : (
-                <button onClick={() => handleSave(index)}>💾 Simpan Perubahan</button>
-              )}
+            ) : (
+            <button onClick={() => handleSave(index)}>💾 Simpan Perubahan</button>
+            )}
             </div>
-          ) : (
-            <button className="btn edit-btn" onClick={() => setEditingIndex(index)}>✏️ Edit</button>
-          )}
+          </div>
         </div>
       ))}
     </div>
