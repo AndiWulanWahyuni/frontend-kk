@@ -79,7 +79,7 @@ export default function EditKKPage() {
       alert("✅ Data berhasil disimpan!");
       router.push("/listdata");
     } catch (error) {
-      console.error("❌ Gagal menyimpan:", err?.response?.data || err.message);
+      console.error("❌ Gagal menyimpan:", error);
       alert("❌ Gagal menyimpan data.");
     } finally {
       setSaving(false);
