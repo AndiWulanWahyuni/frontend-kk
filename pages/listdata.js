@@ -50,7 +50,7 @@ export default function KKListPage() {
   };
 
   const handleEdit = (nomorKK) => {
-    router.push(`/edit?nomorKK=${nomorKK}`);
+    router.push(`/editdata?nomorKK=${nomorKK}`);
   };
 
   return (
