@@ -64,12 +64,23 @@ export default function KKListPage() {
           </div>
           <button onClick={() => handleDownloadQR(index)} style={{ marginTop: "10px" }}>⬇️ Download QR</button>
           <div style={{ marginTop: "15px", textAlign: "left" }}>
-            <p><strong>Nomor KK:</strong> {data.nomorKK}</p>
-            <p><strong>Alamat:</strong> {data.alamat}</p>
             <p><strong>Status Dokumen:</strong> {data.statusDokumen}</p>
+            <p><strong>No. KK:</strong> {data.nomorKK}</p>
+            <p><strong>Alamat:</strong> {data.alamat}</p>
+            <div>
+              <strong>Anggota Keluarga:</strong>
+              <ul>
+                {data.anggotaKeluarga.map((a, i) => (
+                  <li key={i}>{a.nama} - {a.hubungan}</li>
+                ))}
+              </ul>
+            </div>
             <p><strong>Daerah:</strong> {data.daerah}</p>
             <p><strong>Penandatangan:</strong> {data.penandatangan}</p>
-            <p><strong>Jumlah Anggota:</strong> {data.anggotaKeluarga.length}</p>
+            <p><strong>Waktu TTD:</strong> {new Date(data.tanggalTtd).toLocaleString("id-ID", {
+              dateStyle: "long",
+              timeStyle: "short"
+            })}</p>
             <button onClick={() => handleEdit(data.nomorKK)} style={{ marginTop: "10px" }}>Edit</button>
           </div>
         </div>

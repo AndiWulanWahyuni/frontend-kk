@@ -90,25 +90,11 @@ export default function EditKKPage() {
 
   return (
     <div style={{ padding: 20, maxWidth: 700, margin: "0 auto" }}>
-      <h2>✏️ Edit Data Kartu Keluarga</h2>
+      <h2>Edit Data Kartu Keluarga</h2>
 
       <div style={{ margin: "20px 0" }}>
         <QRCode value={`https://frontend-kk.vercel.app/verify?nomorKK=${kkData.nomorKK}`} size={128} />
       </div>
-
-      <label>Nomor KK:</label>
-      <input
-        value={kkData.nomorKK}
-        onChange={(e) => handleChange("nomorKK", e.target.value)}
-        style={{ width: "100%", marginBottom: 10 }}
-      />
-
-      <label>Alamat:</label>
-      <input
-        value={kkData.alamat}
-        onChange={(e) => handleChange("alamat", e.target.value)}
-        style={{ width: "100%", marginBottom: 10 }}
-      />
 
       <label>Status Dokumen:</label>
       <select
@@ -120,18 +106,18 @@ export default function EditKKPage() {
         <option value="tidak aktif">Tidak Aktif</option>
       </select>
 
-      <label>Daerah:</label>
+      <label>No. KK:</label>
       <input
-        value={kkData.daerah}
-        onChange={(e) => handleChange("daerah", e.target.value)}
+        value={kkData.nomorKK}
+        onChange={(e) => handleChange("nomorKK", e.target.value)}
         style={{ width: "100%", marginBottom: 10 }}
       />
 
-      <label>Penandatangan:</label>
+      <label>Alamat:</label>
       <input
-        value={kkData.penandatangan}
-        onChange={(e) => handleChange("penandatangan", e.target.value)}
-        style={{ width: "100%", marginBottom: 20 }}
+        value={kkData.alamat}
+        onChange={(e) => handleChange("alamat", e.target.value)}
+        style={{ width: "100%", marginBottom: 10 }}
       />
 
       <h4>Anggota Keluarga</h4>
@@ -158,6 +144,20 @@ export default function EditKKPage() {
       <button onClick={handleAddMember} style={{ marginBottom: 20 }}>
         ➕ Tambah Anggota
       </button>
+
+      <label>Daerah:</label>
+      <input
+        value={kkData.daerah}
+        onChange={(e) => handleChange("daerah", e.target.value)}
+        style={{ width: "100%", marginBottom: 10 }}
+      />
+
+      <label>Penandatangan:</label>
+      <input
+        value={kkData.penandatangan}
+        onChange={(e) => handleChange("penandatangan", e.target.value)}
+        style={{ width: "100%", marginBottom: 20 }}
+      />
 
       <div>
         <button onClick={handleSave} disabled={saving}>
