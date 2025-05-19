@@ -78,7 +78,7 @@ export default function KKListPage() {
                 <td>
                   <ul style={{ paddingLeft: '16px', margin: 0 }}>
                     {data.anggotaKeluarga.map((anggota, i) => (
-                      <li key={i}>{anggota.nama} - {anggota.status}</li>
+                      <li key={i}>{anggota.nama} - {anggota.hubungan}</li>
                     ))}
                   </ul>
                 </td>
@@ -93,7 +93,7 @@ export default function KKListPage() {
                       value={`https://frontend-kk.vercel.app/verify?nomorKK=${data.nomorKK}`}
                       size={80}
                     />
-                    <p onClick={() => handleDownloadQR(index)} style={{ cursor: 'pointer', marginTop: '6px' }}>
+                    <p onClick={() => handleDownloadQR(index)} style={{ cursor: 'pointer', marginTop: '6px', fontSize: '13px' }}>
                       Download QR Code
                     </p>
                   </div>
@@ -101,7 +101,7 @@ export default function KKListPage() {
               </tr>
               <tr>
                 <td colSpan={5}>
-                  <div className="actions">
+                  <div className="actions" style={{ marginTop: "10px" }}>
                     <button className="edit-btn" onClick={() => handleEdit(data.nomorKK)}>Edit</button>
                   </div>
                 </td>
