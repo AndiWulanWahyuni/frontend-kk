@@ -57,7 +57,7 @@ export default function KKListPage() {
     <div className="container">
       <h1 className="title">Daftar Kartu Keluarga</h1>
 
-      {dataKK.map((data, index) => (
+      {dataList.map((data, index) => (
         <div key={index} className="kk-card">
           <table className="kk-table">
             <thead>
@@ -70,6 +70,7 @@ export default function KKListPage() {
                 <th></th>
               </tr>
             </thead>
+            <tbody>
               <tr>
                 <td>{data.statusDokumen}</td>
                 <td><strong>{data.nomorKK}</strong></td>
@@ -87,9 +88,8 @@ export default function KKListPage() {
                   {new Date(data.tanggalTtd).toLocaleString("id-ID")}
                 </td>
                 <td rowSpan={2}>
-                  <div className="qr-section">
+                  <div className="qr-section" id={`qr-${index}`}>
                     <QRCode
-                      id={`qr-code-${index}`}
                       value={`https://frontend-kk.vercel.app/verify?nomorKK=${data.nomorKK}`}
                       size={80}
                     />
@@ -106,6 +106,7 @@ export default function KKListPage() {
                   </div>
                 </td>
               </tr>
+            </tbody>
           </table>
         </div>
       ))}
