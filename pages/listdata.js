@@ -70,7 +70,6 @@ export default function KKListPage() {
                 <th></th>
               </tr>
             </thead>
-            <tbody>
               <tr>
                 <td>{data.statusDokumen}</td>
                 <td><strong>{data.nomorKK}</strong></td>
@@ -107,7 +106,6 @@ export default function KKListPage() {
                   </div>
                 </td>
               </tr>
-            </tbody>
           </table>
         </div>
       ))}
