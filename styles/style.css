@@ -132,3 +132,85 @@
     color: #d60000;
     margin-bottom: 10px;
 }
+
+/*listdata*/
+.container {
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #102a43;
+  text-align: center;
+}
+
+.kk-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.kk-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.kk-table th {
+  text-align: left;
+  color: #334e68;
+  font-weight: 600;
+  font-size: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.kk-table td {
+  padding: 10px 0;
+  font-size: 15px;
+  color: #102a43;
+  vertical-align: top;
+}
+
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 8px;
+  border-radius: 12px;
+  width: fit-content;
+}
+
+.qr-section p {
+  margin: 5px 0 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.edit-btn {
+  background-color: #2b6cb0;
+  color: white;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.edit-btn:hover {
+  background-color: #2c5282;
+}

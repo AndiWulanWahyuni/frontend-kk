@@ -54,35 +54,61 @@ export default function KKListPage() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>📄 Daftar Kartu Keluarga</h1>
-      {loading && <p>🔄 Memuat data...</p>}
-      {dataList.map((data, index) => (
-        <div key={data.nomorKK} style={{ border: "1px solid #ccc", padding: "15px", margin: "15px 0" }}>
-          <div id={`qr-${index}`}>
-            <QRCode value={`https://frontend-kk.vercel.app/verify?nomorKK=${data.nomorKK}`} size={128} />
-          </div>
-          <button onClick={() => handleDownloadQR(index)} style={{ marginTop: "10px" }}>⬇️ Download QR</button>
-          <div style={{ marginTop: "15px", textAlign: "left" }}>
-            <p><strong>Status Dokumen:</strong> {data.statusDokumen}</p>
-            <p><strong>No. KK:</strong> {data.nomorKK}</p>
-            <p><strong>Alamat:</strong> {data.alamat}</p>
-            <div>
-              <strong>Anggota Keluarga:</strong>
-              <ul>
-                {data.anggotaKeluarga.map((a, i) => (
-                  <li key={i}>{a.nama} - {a.hubungan}</li>
-                ))}
-              </ul>
-            </div>
-            <p><strong>Daerah:</strong> {data.daerah}</p>
-            <p><strong>Penandatangan:</strong> {data.penandatangan}</p>
-            <p><strong>Waktu TTD:</strong> {new Date(data.tanggalTtd).toLocaleString("id-ID", {
-              dateStyle: "long",
-              timeStyle: "short"
-            })}</p>
-            <button onClick={() => handleEdit(data.nomorKK)} style={{ marginTop: "10px" }}>Edit</button>
-          </div>
+    <div className="container">
+      <h1 className="title">Daftar Kartu Keluarga</h1>
+
+      {dataKK.map((data, index) => (
+        <div key={index} className="kk-card">
+          <table className="kk-table">
+            <thead>
+              <tr>
+                <th>Status Dokumen</th>
+                <th>No. KK</th>
+                <th>Alamat</th>
+                <th>Anggota Keluarga</th>
+                <th>Penandatangan</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{data.statusDokumen}</td>
+                <td><strong>{data.nomorKK}</strong></td>
+                <td>{data.alamat}</td>
+                <td>
+                  <ul style={{ paddingLeft: '16px', margin: 0 }}>
+                    {data.anggotaKeluarga.map((anggota, i) => (
+                      <li key={i}>{anggota.nama} - {anggota.status}</li>
+                    ))}
+                  </ul>
+                </td>
+                <td>
+                  {data.daerah}<br />
+                  Kepala Dukcapil: {data.penandatangan}<br />
+                  {new Date(data.tanggalTtd).toLocaleString("id-ID")}
+                </td>
+                <td rowSpan={2}>
+                  <div className="qr-section">
+                    <QRCode
+                      id={`qr-code-${index}`}
+                      value={`https://frontend-kk.vercel.app/verify?nomorKK=${data.nomorKK}`}
+                      size={80}
+                    />
+                    <p onClick={() => handleDownloadQR(index)} style={{ cursor: 'pointer', marginTop: '6px' }}>
+                      Download QR Code
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colSpan={5}>
+                  <div className="actions">
+                    <button className="edit-btn" onClick={() => handleEdit(data.nomorKK)}>Edit</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       ))}
     </div>
