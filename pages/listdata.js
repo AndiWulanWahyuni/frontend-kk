@@ -66,7 +66,7 @@ export default function KKListPage() {
                 <th>No. KK</th>
                 <th>Alamat</th>
                 <th>Anggota Keluarga</th>
-                <th>Penandatangan</th>
+                <th>Info Penandatangan</th>
                 <th></th>
               </tr>
             </thead>
@@ -101,7 +101,7 @@ export default function KKListPage() {
               </tr>
               <tr>
                 <td colSpan={5}>
-                  <div className="actions" style={{ marginTop: "10px" }}>
+                  <div className="actions">
                     <button className="edit-btn" onClick={() => handleEdit(data.nomorKK)}>Edit</button>
                   </div>
                 </td>

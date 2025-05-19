@@ -181,9 +181,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #f8f9fa;
+  background: #b7b7b7;
   padding: 10px;
   border-radius: 12px;
+}
+
+.actions{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .edit-btn {
