@@ -28,12 +28,12 @@ const QRCodeComponent = ({ value }) => {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "20px" }} ref={qrRef}>
+    <div style={{ textAlign: "center", marginBottom: "10px" }} ref={qrRef}>
       <h3>QR Code untuk Verifikasi</h3>
-      <QRCode value={value} size={200} />
+      <QRCode value={value} size={150} />
       <br />
-      <button onClick={downloadQRCode} style={{ marginTop: "10px" }}>
-        Download QR Code
+      <button onClick={downloadQRCode} className="download-button">
+        Download
       </button>
     </div>
   );
