@@ -144,6 +144,7 @@
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .search-input {
@@ -181,27 +182,33 @@
 .kk-table th {
   background-color: #f8fafc;
   font-weight: 600;
-  color: #374151;
+  color: #000000;
+}
+
+.status-activee {
+    color: green !important;
+}
+  
+.status-inactivee {
+    color: red !important;
 }
 
 .anggota-list {
-  padding-left: 16px;
+  padding-left: 0;
   margin: 0;
-  list-style-type: disc;
+  list-style-type: none;
   font-size: 0.92rem;
 }
 
 .download-link {
-  margin-top: 6px;
-  font-size: 13px;
-  color: #2563eb;
-  text-decoration: underline;
+  background-color: #55a4f3;
+  color: white;
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.download-link:hover {
-  color: #1d4ed8;
+  transition: background-color 0.2s ease;
 }
 
 .qr-section {
@@ -214,7 +221,7 @@
 }
 
 .edit-btn {
-  background-color: #059669;
+  background-color: #55a4f3;
   color: white;
   padding: 0.4rem 1rem;
   font-size: 0.85rem;
@@ -222,8 +229,4 @@
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease;
-}
-
-.edit-btn:hover {
-  background-color: #047857;
 }

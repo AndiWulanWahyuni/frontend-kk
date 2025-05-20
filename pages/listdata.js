@@ -92,7 +92,15 @@ export default function KKListPage() {
               </thead>
               <tbody>
                 <tr>
-                  <td>{data.statusDokumen}</td>
+                  <td>
+                    <span className={
+                      data.statusDokumen?.trim().toLowerCase() === "aktif"
+                        ? "status-activee"
+                        : "status-inactivee"
+                    }>
+                      {data.statusDokumen}
+                    </span>
+                  </td>
                   <td><strong>{data.nomorKK}</strong></td>
                   <td>{data.alamat}</td>
                   <td>
