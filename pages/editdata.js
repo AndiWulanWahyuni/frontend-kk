@@ -89,81 +89,66 @@ export default function EditKKPage() {
   if (!kkData) return <p>🔄 Memuat data...</p>;
 
   return (
-    <div style={{ padding: 20, maxWidth: 700, margin: "0 auto" }}>
+    <div className="edit-container">
       <h2>Edit Data Kartu Keluarga</h2>
 
-      <div style={{ margin: "20px 0" }}>
+      <div className="qr-code">
         <QRCode value={`https://frontend-kk.vercel.app/verify?nomorKK=${kkData.nomorKK}`} size={128} />
       </div>
 
-      <label>Status Dokumen:</label>
-      <select
-        value={kkData.statusDokumen}
-        onChange={(e) => handleChange("statusDokumen", e.target.value)}
-        style={{ width: "100%", marginBottom: 10 }}
-      >
-        <option value="aktif">Aktif</option>
-        <option value="tidak aktif">Tidak Aktif</option>
-      </select>
-
-      <label>No. KK:</label>
-      <input
-        value={kkData.nomorKK}
-        onChange={(e) => handleChange("nomorKK", e.target.value)}
-        style={{ width: "100%", marginBottom: 10 }}
-      />
-
-      <label>Alamat:</label>
-      <input
-        value={kkData.alamat}
-        onChange={(e) => handleChange("alamat", e.target.value)}
-        style={{ width: "100%", marginBottom: 10 }}
-      />
-
-      <h4>Anggota Keluarga</h4>
-      {kkData.anggotaKeluarga.map((member, i) => (
-        <div key={i} style={{ marginBottom: 10 }}>
-          <input
-            type="text"
-            value={member.nama}
-            onChange={(e) => handleMemberChange(i, "nama", e.target.value)}
-            placeholder="Nama"
-            style={{ width: "45%", marginRight: 10 }}
-          />
-          <input
-            type="text"
-            value={member.hubungan}
-            onChange={(e) => handleMemberChange(i, "hubungan", e.target.value)}
-            placeholder="Hubungan"
-            style={{ width: "45%", marginRight: 10 }}
-          />
-          <button onClick={() => handleRemoveMember(i)}>❌</button>
-        </div>
-      ))}
-
-      <button onClick={handleAddMember} style={{ marginBottom: 20 }}>
-        ➕ Tambah Anggota
-      </button>
-
-      <label>Daerah:</label>
-      <input
-        value={kkData.daerah}
-        onChange={(e) => handleChange("daerah", e.target.value)}
-        style={{ width: "100%", marginBottom: 10 }}
-      />
-
-      <label>Penandatangan:</label>
-      <input
-        value={kkData.penandatangan}
-        onChange={(e) => handleChange("penandatangan", e.target.value)}
-        style={{ width: "100%", marginBottom: 20 }}
-      />
-
-      <div>
-        <button onClick={handleSave} disabled={saving}>
-          {saving ? "💾 Menyimpan..." : "💾 Simpan Perubahan"}
-        </button>
+      <div className="form-group">
+        <label>Status Dokumen</label>
+        <select value={kkData.statusDokumen} onChange={(e) => handleChange("statusDokumen", e.target.value)}>
+          <option value="aktif">Aktif</option>
+          <option value="tidak aktif">Tidak Aktif</option>
+        </select>
       </div>
+
+      <div className="form-group">
+        <label>Nomor KK</label>
+        <input value={kkData.nomorKK} onChange={(e) => handleChange("nomorKK", e.target.value)} />
+      </div>
+
+      <div className="form-group">
+        <label>Alamat</label>
+        <input value={kkData.alamat} onChange={(e) => handleChange("alamat", e.target.value)} />
+      </div>
+
+      <div className="form-group">
+        <label>Anggota Keluarga</label>
+        {kkData.anggotaKeluarga.map((member, i) => (
+          <div className="anggota-row" key={i}>
+            <input
+              type="text"
+              value={member.nama}
+              onChange={(e) => handleMemberChange(i, "nama", e.target.value)}
+              placeholder="Nama"
+            />
+            <input
+              type="text"
+              value={member.hubungan}
+              onChange={(e) => handleMemberChange(i, "hubungan", e.target.value)}
+              placeholder="Hubungan"
+            />
+            <button type="button" onClick={() => handleRemoveMember(i)} className="remove-btn">🗑️</button>
+          </div>
+        ))}
+        <button type="button" onClick={handleAddMember} className="add-btn">➕ Tambah Anggota</button>
+      </div>
+
+      <div className="form-group">
+        <label>Daerah</label>
+        <input value={kkData.daerah} onChange={(e) => handleChange("daerah", e.target.value)} />
+      </div>
+
+      <div className="form-group">
+        <label>Penandatangan</label>
+        <input value={kkData.penandatangan} onChange={(e) => handleChange("penandatangan", e.target.value)} />
+      </div>
+
+      <button onClick={handleSave} disabled={saving} className="save-btn">
+        {saving ? "Menyimpan..." : "Simpan Perubahan"}
+      </button>
     </div>
   );
 }
