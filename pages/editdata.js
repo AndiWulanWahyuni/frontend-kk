@@ -133,7 +133,7 @@ export default function EditKKPage() {
             <button type="button" onClick={() => handleRemoveMember(i)} className="remove-btn">🗑️</button>
           </div>
         ))}
-        <button type="button" onClick={handleAddMember} className="add-btn">➕ Tambah Anggota</button>
+        <button type="button" onClick={handleAddMember} className="add-btn">Tambah Anggota</button>
       </div>
 
       <div className="form-group">

@@ -237,7 +237,6 @@
   max-width: 700px;
   margin: 0 auto;
   padding: 20px;
-  font-family: sans-serif;
 }
 
 h2 {
@@ -282,15 +281,16 @@ h2 {
 
 .remove-btn {
   background: none;
-  color: #c6c6c6;
+  color: #000000;
   border: none;
   padding: 6px 10px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 18px;
 }
 
 .add-btn {
-  background-color: green;
+  background-color: #55a4f3;
   color: white;
   border: none;
   padding: 6px 12px;
@@ -302,7 +302,7 @@ h2 {
 .save-btn {
   width: 100%;
   padding: 10px;
-  background-color: #0070f3;
+  background-color: #55a4f3;
   color: white;
   font-weight: bold;
   border: none;
