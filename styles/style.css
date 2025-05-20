@@ -211,6 +211,8 @@
   transition: background-color 0.2s ease;
   margin-bottom: 0.5rem;
   width: 80px;
+  justify-content: center;
+  align-items: center;
 }
 
 .qr-section {
@@ -226,5 +228,5 @@
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  margin-left: 10px;
+  margin-left: 15px;
 }
