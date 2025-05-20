@@ -212,6 +212,7 @@
   margin-bottom: 0.5rem;
   width: 85px;
   display: block;
+  margin: 0 auto;
 }
 
 .qr-section {
@@ -228,4 +229,5 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
   display: block;
+  margin: 0 auto;
 }
