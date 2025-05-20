@@ -255,13 +255,9 @@ h2 {
 }
 
 .form-group {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #000000;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: #ffffff;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group label {
@@ -275,6 +271,8 @@ h2 {
   font-size: 16px;
   border-radius: 4px;
   border: 1px solid #ccc;
+  width: 100%;
+  max-width: 100%;
 }
 
 .anggota-row {
