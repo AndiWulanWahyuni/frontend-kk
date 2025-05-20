@@ -44,6 +44,7 @@ export default function Home() {
                 const link = `https://frontend-kk.vercel.app/verify?nomorKK=${nomorKK}`;
                 setQRValue(link);
                 console.log("✅ QR VALUE:", link);
+                resetForm();
                 alert("✅ Data berhasil disimpan ke Firebase dan Blockchain!");
             } else {
                 console.error("⚠️ Gagal menyimpan:", response.data.message);
@@ -58,6 +59,15 @@ export default function Home() {
                 alert("❌ Error saat menyimpan data.");
             }
         }        
+    };
+
+    const resetForm = () => {
+      setStatusDokumen("Aktif");
+      setNomorKK("");
+      setAlamat("");
+      setAnggotaKeluarga([{ nama: "", hubungan: "" }]);
+      setDaerah("");
+      setPenandatangan("");
     };
 
     return (
