@@ -275,7 +275,7 @@ h2 {
 
 .anggota-row {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   gap: 10px;
   margin-bottom: 10px;
 }
@@ -310,10 +310,4 @@ h2 {
   border-radius: 6px;
   cursor: pointer;
   margin-top: 20px;
-}
-
-.loading-text {
-  text-align: center;
-  margin-top: 40px;
-  font-size: 18px;
 }
