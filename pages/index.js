@@ -150,9 +150,9 @@ export default function Home() {
             />
     
             <button type="submit" className="form-button">Simpan Data</button>
+
+            {qrValue && <QRCodeComponent value={qrValue} />}
           </form>
-    
-          {qrValue && <QRCodeComponent value={qrValue} />}
         </div>
     );
 }
