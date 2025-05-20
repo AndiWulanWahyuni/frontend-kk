@@ -280,6 +280,10 @@ h2 {
   margin-bottom: 10px;
 }
 
+.anggota-row input {
+  flex: 1;
+}
+
 .remove-btn {
   background: none;
   border: none;
