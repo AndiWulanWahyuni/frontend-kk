@@ -28,7 +28,7 @@ const QRCodeComponent = ({ value }) => {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "20px", marginBottom: "20px" }} ref={qrRef}>
+    <div style={{ textAlign: "center", padding: "20px", gap: "15px" }} ref={qrRef}>
       <h3>QR Code untuk Verifikasi</h3>
       <QRCode value={value} size={150} />
       <br />
