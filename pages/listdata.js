@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 export default function KKListPage() {
   const [dataList, setDataList] = useState([]);
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -57,7 +58,7 @@ export default function KKListPage() {
     <div className="container">
       <h1 className="title">Daftar Kartu Keluarga</h1>
 
-      {dataList.map((data, index) => (
+      {filteredData.map((data, index) => (
         <div key={index} className="kk-card">
           <table className="kk-table">
             <thead>
@@ -67,7 +68,7 @@ export default function KKListPage() {
                 <th>Alamat</th>
                 <th>Anggota Keluarga</th>
                 <th>Info Penandatangan</th>
-                <th></th>
+                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -76,7 +77,7 @@ export default function KKListPage() {
                 <td><strong>{data.nomorKK}</strong></td>
                 <td>{data.alamat}</td>
                 <td>
-                  <ul style={{ paddingLeft: '16px', margin: 0 }}>
+                  <ul className="anggota-list">
                     {data.anggotaKeluarga.map((anggota, i) => (
                       <li key={i}>{anggota.nama} - {anggota.hubungan}</li>
                     ))}
@@ -87,22 +88,18 @@ export default function KKListPage() {
                   Kepala Dukcapil: {data.penandatangan}<br />
                   {new Date(data.tanggalTtd).toLocaleString("id-ID")}
                 </td>
-                <td rowSpan={2}>
+                <td>
                   <div className="qr-section" id={`qr-${index}`}>
                     <QRCode
                       value={`https://frontend-kk.vercel.app/verify?nomorKK=${data.nomorKK}`}
                       size={80}
                     />
-                    <p onClick={() => handleDownloadQR(index)} style={{ cursor: 'pointer', marginTop: '6px', fontSize: '13px' }}>
-                      Download QR Code
+                    <p className="download-link" onClick={() => handleDownloadQR(index)}>
+                      Download
                     </p>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colSpan={5}>
-                  <div className="actions">
-                    <button className="edit-btn" onClick={() => handleEdit(data.nomorKK)}>Edit</button>
+                    <button className="edit-btn" onClick={() => handleEdit(data.nomorKK)}>
+                      Edit
+                    </button>
                   </div>
                 </td>
               </tr>
