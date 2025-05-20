@@ -54,59 +54,79 @@ export default function KKListPage() {
     router.push(`/editdata?nomorKK=${nomorKK}`);
   };
 
+  const filteredData = search
+    ? dataList.filter((data) =>
+        data.nomorKK.toLowerCase().includes(search.toLowerCase())
+      )
+    : dataList;
+
   return (
     <div className="container">
       <h1 className="title">Daftar Kartu Keluarga</h1>
 
-      {filteredData.map((data, index) => (
-        <div key={index} className="kk-card">
-          <table className="kk-table">
-            <thead>
-              <tr>
-                <th>Status Dokumen</th>
-                <th>No. KK</th>
-                <th>Alamat</th>
-                <th>Anggota Keluarga</th>
-                <th>Info Penandatangan</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{data.statusDokumen}</td>
-                <td><strong>{data.nomorKK}</strong></td>
-                <td>{data.alamat}</td>
-                <td>
-                  <ul className="anggota-list">
-                    {data.anggotaKeluarga.map((anggota, i) => (
-                      <li key={i}>{anggota.nama} - {anggota.hubungan}</li>
-                    ))}
-                  </ul>
-                </td>
-                <td>
-                  {data.daerah}<br />
-                  Kepala Dukcapil: {data.penandatangan}<br />
-                  {new Date(data.tanggalTtd).toLocaleString("id-ID")}
-                </td>
-                <td>
-                  <div className="qr-section" id={`qr-${index}`}>
-                    <QRCode
-                      value={`https://frontend-kk.vercel.app/verify?nomorKK=${data.nomorKK}`}
-                      size={80}
-                    />
-                    <p className="download-link" onClick={() => handleDownloadQR(index)}>
-                      Download
-                    </p>
-                    <button className="edit-btn" onClick={() => handleEdit(data.nomorKK)}>
-                      Edit
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      ))}
+      <input
+        type="text"
+        placeholder="Cari"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="search-input"
+      />
+
+      {loading ? (
+        <p>Loading...</p>
+      ) : filteredData.length === 0 ? (
+        <p>Tidak ada data ditemukan.</p>
+      ) : (
+        filteredData.map((data, index) => (
+          <div key={index} className="kk-card">
+            <table className="kk-table">
+              <thead>
+                <tr>
+                  <th>Status Dokumen</th>
+                  <th>No. KK</th>
+                  <th>Alamat</th>
+                  <th>Anggota Keluarga</th>
+                  <th>Info Penandatangan</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{data.statusDokumen}</td>
+                  <td><strong>{data.nomorKK}</strong></td>
+                  <td>{data.alamat}</td>
+                  <td>
+                    <ul className="anggota-list">
+                      {data.anggotaKeluarga.map((anggota, i) => (
+                        <li key={i}>{anggota.nama} - {anggota.hubungan}</li>
+                      ))}
+                    </ul>
+                  </td>
+                  <td>
+                    {data.daerah}<br />
+                    Kepala Dukcapil: {data.penandatangan}<br />
+                    {new Date(data.tanggalTtd).toLocaleString("id-ID")}
+                  </td>
+                  <td>
+                    <div className="qr-section" id={`qr-${index}`}>
+                      <QRCode
+                        value={`https://frontend-kk.vercel.app/verify?nomorKK=${data.nomorKK}`}
+                        size={80}
+                      />
+                      <p className="download-link" onClick={() => handleDownloadQR(index)}>
+                        Download
+                      </p>
+                      <button className="edit-btn" onClick={() => handleEdit(data.nomorKK)}>
+                        Edit
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        ))
+      )}
     </div>
   );
 }
