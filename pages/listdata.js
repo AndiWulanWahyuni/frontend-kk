@@ -73,7 +73,7 @@ export default function KKListPage() {
       />
 
       {loading ? (
-        <p>Loading...</p>
+        <p>Memuat...</p>
       ) : filteredData.length === 0 ? (
         <p>Tidak ada data ditemukan.</p>
       ) : (

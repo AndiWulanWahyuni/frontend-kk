@@ -86,7 +86,7 @@ export default function EditKKPage() {
     }
   };
 
-  if (!kkData) return <p>🔄 Memuat data...</p>;
+  if (!kkData) return <p>Memuat data...</p>;
 
   return (
     <div className="edit-container">
