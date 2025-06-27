@@ -123,7 +123,7 @@ export default function VerifyPage() {
       {status === "error" && (
         <div className="error-box">
           <h2>⚠️ Terjadi Kesalahan</h2>
-          <p>Gagal memverifikasi data. Silakan coba beberapa saat lagi.</p>
+          <p>Gagal memverifikasi data. Silahkan coba beberapa saat lagi.</p>
         </div>
       )}
     </div>
