@@ -13,11 +13,17 @@ export default function VerifyPage() {
   useEffect(() => {
     if (!nomorKK) return;
 
+    const startVerify = performance.now();
+
     const verifyData = async () => {
       try {
         const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk/verify`, {
           nomorKK,
-        });        
+        });
+
+        const endVerify = performance.now();
+        const duration = (endVerify - startVerify).toFixed(2);
+        console.log(`⏱️ Waktu verifikasi QR Code → tampil data: ${duration} ms`);
 
         if (response.data.success) {
           setStatus("valid");

@@ -28,6 +28,8 @@ export default function Home() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const startTime = performance.now();
+
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/kk/store`, {
                 statusDokumen,
@@ -38,6 +40,11 @@ export default function Home() {
                 penandatangan,
                 tanggalTtd: new Date().toISOString(),
             });
+
+            const endTime = performance.now();
+            const duration = (endTime - startTime).toFixed(2);
+
+            console.log(`⏱️ Waktu submit form → respons backend: ${duration} ms`);
     
             if (response.data.success) {
                 console.log("✅ Data berhasil disimpan:", response.data);
