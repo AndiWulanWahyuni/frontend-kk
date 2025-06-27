@@ -104,7 +104,9 @@ export default function KKListPage() {
                   <td>
                     <strong>{data.nomorKK}</strong>
                     <br />
-                    <strong>Hash: </strong>{data.hashKK}
+                    <span style={{ display: "block", wordBreak: "break-word" }}>
+                      <strong>Hash: </strong>{data.hashKK}
+                    </span>
                   </td>
                   <td>{data.alamat}</td>
                   <td>
