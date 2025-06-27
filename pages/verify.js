@@ -23,7 +23,7 @@ export default function VerifyPage() {
 
         const endVerify = performance.now();
         const duration = (endVerify - startVerify).toFixed(2);
-        console.log(`⏱️ Waktu verifikasi QR Code → tampil data: ${duration} ms`);
+        console.log(`Waktu verifikasi QR Code → tampil data: ${duration} ms`);
 
         if (response.data.success) {
           setStatus("valid");
@@ -104,6 +104,13 @@ export default function VerifyPage() {
             <div className="section-title">Tanggal dan Waktu TTD</div>
             <div className="section-content">
               {new Date(dataKK.tanggalTtd).toLocaleString("id-ID")}
+            </div>
+          </div>
+
+          <div className="section">
+            <div className="section-title">Hash Blockchain</div>
+            <div className="section-content" style={{ wordWrap: "break-word", fontSize: "14px" }}>
+              {dataKK.hashKK}
             </div>
           </div>
 

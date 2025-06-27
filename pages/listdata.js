@@ -101,7 +101,13 @@ export default function KKListPage() {
                       {data.statusDokumen}
                     </span>
                   </td>
-                  <td><strong>{data.nomorKK}</strong></td>
+                  <td>
+                    <strong>{data.nomorKK}</strong>
+                    <br />
+                    <span style={{ fontSize: "12px", display: "block", marginTop: "6px", wordBreak: "break-word" }}>
+                      <strong>Hash:</strong>{data.hashKK}
+                    </span>
+                  </td>
                   <td>{data.alamat}</td>
                   <td>
                     <ul className="anggota-list">
